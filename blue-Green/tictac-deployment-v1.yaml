@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tictac-deployment-v1
+  namespace: webapps
 spec:
   replicas: 2
   strategy:
