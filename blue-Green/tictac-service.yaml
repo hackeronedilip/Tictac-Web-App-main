@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: tic-tac-blue-service
+  name: tictac-service
 spec:
-  type: LoadBalancer
   selector:
     app: tic-tac-app
-    version: {? {VERSION: ''} : ''}
   ports:
-    - port: 80
+    - protocol: TCP
+      port: 80
       targetPort: 80
+  type: LoadBalancer

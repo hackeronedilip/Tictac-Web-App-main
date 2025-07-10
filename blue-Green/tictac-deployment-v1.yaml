@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tictac-{{VERSION}}-deployment
+  name: tictac-test-deployment-v1
 spec:
   replicas: 2
   strategy:
@@ -9,16 +9,16 @@ spec:
   selector:
     matchLabels:
       app: tic-tac-app
-      version: {? {VERSION: ''} : ''}
+      version: v1
   template:
     metadata:
       labels:
         app: tic-tac-app
-        version: {? {VERSION: ''} : ''}
+        version: v1
     spec:
       containers:
         - name: tic-tac-container
-          image: 690109731501.dkr.ecr.us-east-1.amazonaws.com:{{IMAGE_TAG}}
+          image: 690109731501.dkr.ecr.us-east-1.amazonaws.com/blue-green-deploy:v1.1
           imagePullPolicy: Always
           ports:
             - containerPort: 80
