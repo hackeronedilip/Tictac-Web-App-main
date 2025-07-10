@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tictac-test-deployment-v2
+  name: tictac-deployment-v2
 spec:
   replicas: 2
   strategy:
