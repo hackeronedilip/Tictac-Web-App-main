@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: tic-tac-container
-          image: blue-green-deploy:v2.0
+          image: 690109731501.dkr.ecr.us-east-1.amazonaws.com/blue-green-deploy:v1.1
           imagePullPolicy: Always
           ports:
             - containerPort: 80
