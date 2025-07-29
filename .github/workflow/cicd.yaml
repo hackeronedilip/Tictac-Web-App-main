@@ -33,14 +33,7 @@ jobs:
         unzip sonar-scanner.zip -d /opt
         echo "/opt/sonar-scanner-4.6.2.2472-linux/bin" >> $GITHUB_PATH  
 
-      - name: Run SonarQube analysis
-        run: |
-          sonar-scanner \
-            -Dsonar.projectKey=MyTictac \
-            -Dsonar.host.url=http://44.204.195.225:9000 \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-            -Dsonar.sources=. \ 
-      
+
       - name: Build and Push Docker Image
         run: |
           docker build -t mytictac:latest .
