@@ -26,12 +26,7 @@ jobs:
       - name: Install npm dependencies
         run: npm install  
 
-      - name: Install SonarQube Scanner
-        uses: SonarSource/sonarqube-scan-action@v1.0.0
-        run: |
-        curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
-        unzip sonar-scanner.zip -d /opt
-        echo "/opt/sonar-scanner-4.6.2.2472-linux/bin" >> $GITHUB_PATH  
+
 
 
       - name: Build and Push Docker Image
