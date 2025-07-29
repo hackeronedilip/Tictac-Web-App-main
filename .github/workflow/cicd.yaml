@@ -1,0 +1,66 @@
+name: CI/CD Pipeline for Tic Tac Toe Game
+
+permissions:
+  security-events: write
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_scan:
+    runs-on: ubuntu-latest
+
+  
+  steps:
+      - name: Checkout code for build
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set up Nodejs environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install npm dependencies
+        run: npm install  
+
+      - name: Install SonarQube Scanner
+        uses: SonarSource/sonarqube-scan-action@v1.0.0
+        run: |
+        curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
+        unzip sonar-scanner.zip -d /opt
+        echo "/opt/sonar-scanner-4.6.2.2472-linux/bin" >> $GITHUB_PATH  
+
+      - name: Run SonarQube analysis
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=MyTictac \
+            -Dsonar.host.url=http://44.204.195.225:9000 \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+            -Dsonar.sources=. \ 
+      
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t mytictac:latest .
+          docker tag mytictac:latest mydockerhubusername/mytictac:latest
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+          docker push devops5511/tictacapp
+
+      - name: Run Trivy Docker Image Scanner
+        uses: aquasecurity/trivy-action@v0.3.0
+        with:
+          image-ref: devops5511/tictacapp
+          format: 'sarif'
+          output: 'trivy-scan-results.sarif'
+
+      -name: Replace with Docker Image
+        run: |
+          sed -i 's|image: mytictac:latest|image: devops5511/tictacapp:latest|' kubernetes/deployment.yaml
+          sed -i 's|imagePullPolicy: IfNotPresent|imagePullPolicy: Always|' kubernetes/deployment.yaml
+        
+
+
+
+        
