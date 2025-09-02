@@ -99,9 +99,9 @@ function App() {
         <div className="p-6 bg-indigo-600 text-white text-center">
           <h1 className="text-3xl font-bold flex items-center justify-center gap-2">
             <Award className="h-8 w-8" />
-            Blue Deployment  - Tic Tac Toe
+            Green  - Tic Tac Toe
           </h1>
-          <p className="text-indigo-200 mt-1"> Feature 1.0</p>
+          <p className="text-indigo-200 mt-1"> Feature 2.0</p>
         </div>
         
         <div className="p-6 md:p-8 grid grid-cols-1 md:grid-cols-3 gap-8">
