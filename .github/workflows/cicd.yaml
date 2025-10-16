@@ -19,3 +19,23 @@ jobs:
           node-version: '14'
       - name: Install dependencies
         run: npm install
+
+      - name: Run tests
+        run: npm test
+
+
+      - name: Install SonarQube Scanner
+        run: |
+          curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
+          unzip sonar-scanner.zip -d /opt
+          echo "/opt/sonar-scanner-4.6.2.2472-linux/bin" >> $GITHUB_PATH
+
+      - name: Run SonarQube analysis
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=MyTictac \
+            -Dsonar.sources=. \
+            -Dsonar.host.url=${{ secrets.SONARQUBE_HOST_URL }} \
+            -Dsonar.login=${{ secrets.SONARQUBE_TOKEN }}
+
+      
