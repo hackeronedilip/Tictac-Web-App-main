@@ -46,7 +46,7 @@ jobs:
             -Dsonar.projectKey=MyTictac \
             -Dsonar.sources=. \
             -Dsonar.host.url=http://35.154.73.125:9000 \
-            -Dsonar.login=${{ secrets.SONARQUBE_TOKEN }} 
-            -Dsonar.source= .\
+            -Dsonar.login=${{ secrets.SONARQUBE_TOKEN }} \
+            -Dsonar.source=. \
             -Dsonar.language=py \
             -X
