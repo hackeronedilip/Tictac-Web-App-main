@@ -1,54 +1,21 @@
-name: CI/CD Pipeline for Tic Tac Toe Game
-
+name: CI/CD Pipeline
 permissions:
   security-events: write
-
 on:
   push:
     branches:
-      - main
-
+      - feature/devops
 jobs:
-  build_and_scan:
+  build_and_deploy:
     runs-on: ubuntu-latest
-
-  
-  steps:
-      - name: Checkout code for build
+    steps:
+      - name: Checkout repository
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Set up Nodejs environment
+      - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '14'
-
-      - name: Install npm dependencies
-        run: npm install  
-
-
-
-
-      - name: Build and Push Docker Image
-        run: |
-          docker build -t mytictac:latest .
-          docker tag mytictac:latest mydockerhubusername/mytictac:latest
-          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-          docker push devops5511/tictacapp
-
-      - name: Run Trivy Docker Image Scanner
-        uses: aquasecurity/trivy-action@v0.3.0
-        with:
-          image-ref: devops5511/tictacapp
-          format: 'sarif'
-          output: 'trivy-scan-results.sarif'
-
-      -name: Replace with Docker Image
-        run: |
-          sed -i 's|image: mytictac:latest|image: devops5511/tictacapp:latest|' kubernetes/deployment.yaml
-          sed -i 's|imagePullPolicy: IfNotPresent|imagePullPolicy: Always|' kubernetes/deployment.yaml
-        
-
-
-
-        
+      - name: Install dependencies
+        run: npm install
