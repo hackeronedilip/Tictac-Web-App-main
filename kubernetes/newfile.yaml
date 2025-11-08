@@ -9,3 +9,16 @@ data:
 kind: ConfigMap
 metadata:
   name: example-config
+  sdsjkds
+  skdks
+
+  sdskdjsdS
+
+  sdskdjsdSs
+  ds
+  labels:
+    app: myapp
+data:
+  config.yaml: |      
+    setting1: true
+    setting2: 42    
