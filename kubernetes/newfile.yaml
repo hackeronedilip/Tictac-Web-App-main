@@ -3,7 +3,9 @@ kind: Deployment
 metadata: this test data
 test sample data
 data:
+  key 1: value
   key1: value111
   key2: value2]
 kind: ConfigMap
 metadata:
+  name: example-config
