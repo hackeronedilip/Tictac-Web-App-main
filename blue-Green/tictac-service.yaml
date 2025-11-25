@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     app: tic-tac-app
-    version: v1 # <-- Added version selector
+    version: v1
   ports:
     - protocol: TCP
       port: 80

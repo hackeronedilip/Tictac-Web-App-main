@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: tic-tac-container
-          image: dilipopseng/tictac:8
+          image: 191080270307.dkr.ecr.ap-south-1.amazonaws.com/tictacapp:v1
           imagePullPolicy: Always
           ports:
             - containerPort: 80
